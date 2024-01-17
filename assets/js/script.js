@@ -1,35 +1,48 @@
-const changeHue = (direction) => {
-    const hueNames = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const cycleProductImages = (currentColorIndex) => {    
     const productHighlightImgs = document.querySelectorAll("#productHighlight img");
 
-    for (i = 0; i < hueNames.length; i++){
+    productHighlightImgs.forEach((img, imgIndex) => {
+        img.classList.replace("d-block", "hidden");
+        if (imgIndex === currentColorIndex) {
+            img.classList.replace("hidden", "d-block");
+        }
+    });
+};
 
-        const hueElements = document.querySelectorAll(`.bg-color-${hueNames[i]}`);
-        if (hueElements.length > 0){
-            hueElements.forEach(hueElement => {
-                if(hueElement.classList.contains(`bg-color-${hueNames[i]}`)){
-                    const isFirstItem = hueNames.indexOf(hueNames[i]) === 0;
-                    const isLastItem  = hueNames.indexOf(hueNames[i]) === hueNames.length - 1
-                    const prevHue = isFirstItem ? hueNames[hueNames.length - 1] : hueNames[hueNames.indexOf(hueNames[i]) - 1];
-                    const nextHue = isLastItem ? "one" : hueNames[hueNames.indexOf(hueNames[i]) + 1];
-                    
-                    productHighlightImgs.forEach(img => {
-                        img.classList.replace("d-block", "hidden");
-                        productHighlightImgs[i].classList.replace("hidden", "d-block");
-                    });
+const getCurrentHueElements = (hueNames) => {
+    for (const hueName of hueNames) {
+        const currentHueElements = document.querySelectorAll(`.bg-color-${hueName}`);
+        if (currentHueElements.length > 0) {
+            return currentHueElements;
+        }
+    }
+    return [];
+};
 
-                    if (direction === "prev") {
-                        hueElement.classList.replace(`bg-color-${hueNames[i]}`, `bg-color-${prevHue}`);
-                    } else {
-                        hueElement.classList.replace(`bg-color-${hueNames[i]}`, `bg-color-${nextHue}`);
-                    }
-                }
+
+const cycleColourOnCarousel = (direction) => {
+    const hueNames = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+    
+    const initialHueElements    = getCurrentHueElements(hueNames);
+    
+    if (initialHueElements.length > 0) {
+
+        const getCurrentHueName     = initialHueElements[0].classList.value.split(" ").find(className => className.startsWith("bg-color-")).split("-")[2];
+        const currentHueElements    = document.querySelectorAll(`.bg-color-${getCurrentHueName}`);
+    
+        if(currentHueElements.length > 0) {
+            const currentHueIndex   = hueNames.indexOf(getCurrentHueName);
+            const nextHueIndex      = direction === "next" ? (currentHueIndex + 1) % hueNames.length : (currentHueIndex - 1 + hueNames.length) % hueNames.length;
+            const nextHue           = hueNames[nextHueIndex];
+            
+            cycleProductImages(nextHueIndex);
+            currentHueElements.forEach((hueElement) => {
+                hueElement.classList.replace(`bg-color-${getCurrentHueName}`, `bg-color-${nextHue}`);
             });
         }
-
     }
 };
 
-document.querySelector(".slider-btn-prev").addEventListener("click", () => { changeHue("prev"); });
-document.querySelector(".slider-btn-next").addEventListener("click", () => { changeHue("next"); });
+document.querySelector(".slider-btn-prev").addEventListener("click", () => { cycleColourOnCarousel("prev"); });
+document.querySelector(".slider-btn-next").addEventListener("click", () => { cycleColourOnCarousel("next"); });
 

@@ -27,12 +27,16 @@ ol, ul{
     list-style-type: none;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 .container{
     width: 100%;
-    max-width: 1280px;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 0 2rem;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 1rem;
     overflow: hidden;
 }
 
@@ -128,7 +132,10 @@ ol, ul{
 .pt-8{
     padding-top: 2rem;
 }
-
+.mx-auto {
+    margin-right: auto;
+    margin-left: auto;
+}
 .btn{
     display: inline-flex;
     row-gap: 0.25rem;
@@ -171,6 +178,9 @@ ol, ul{
 }
 
 /* hero */
+#heroTextContainer{
+    width: 60%;
+}
 #heroTextContainer h1{
     font-size: 4rem;
     margin: 0;
@@ -188,18 +198,25 @@ ol, ul{
     font-weight: 600;
     padding: 0.75rem 1.5rem;
 }
-
+#productCarousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
 /* product highlight */
 #productHighlight{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 47.6875rem;
-    height: 43.625rem;
+    /* width: 47.6875rem;
+    height: 43.625rem; */
+    width: 50vw;
+    aspect-ratio: 1/1;
     border-width: 2px;
-    border-style: dotted;
-    stroke-dashoffset: 1rem;
     border-color: var(--white-color);
+    border-style: dashed;
+    /* border-image: repeating-linear-gradient(to right, transparent, transparent 10px, var(--white-color) 10px, var(--white-color) 11px) 1 100% 0; */
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -210,6 +227,9 @@ ol, ul{
 }
 
 .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -223,8 +243,18 @@ ol, ul{
     -ms-border-radius: var(--default-radius);
     -o-border-radius: var(--default-radius);
     box-shadow: 0 4 4 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
 }
 
+.slider-btn-prev {
+    left: 0;
+}
+.slider-btn-next {
+    right: 0;
+}
 .ball{
     position: absolute;
     width: 2.25rem;
@@ -253,3 +283,107 @@ ol, ul{
     height: 15%;
     z-index: -1;
 }
+
+/* ========================================
+============ MEDIA QUERIES ================
+========================================= */
+
+/* @media screen and (max-width: 1399.98px) {
+    .container {
+        max-width: 1024px;
+    }
+} */
+
+@media screen and (max-width: 1199.98px) {
+    .container {
+        max-width: 960px;
+    }
+    #productHightlight {
+        width: 60vw;
+    }
+    .product-highlight-shadow {
+        width: 80%;
+        bottom: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 991.98px) {
+    .container{
+        max-width: 720px;
+    }
+    #heroTextContainer {
+        width: 85%;
+    }
+    #productHighlight img{
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+    }
+    .product-highlight-shadow {
+        width: 80%;
+        bottom: 3rem;
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .container{
+        max-width: 540px;
+    }
+    #mainMenu {
+        display: none;
+    }
+    #heroTextContainer {
+        width: 90%;
+        text-align: center;
+        align-items: center;
+        padding-bottom: 2rem;
+    }
+    /* #productCarousel {
+        justify-content: center;
+        gap: 3rem;
+    } */
+    #productHighlight img {
+        width: 60%;
+        height: 60%;
+    }
+    .slider-btn{
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+    }
+    .ball {
+        width: 1.5rem;
+        height: 1.5rem;
+        left: -.75rem;
+    }
+}
+
+@media screen and (max-width: 575.98px) {
+    .container{
+        max-width: 100%;
+    }
+    #heroTextContainer{
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    #heroTextContainer h1{
+        font-size: 3rem;
+    }
+    #heroTextContainer p {
+        font-size: 1rem;
+    }
+    #productCarousel {
+        width: 90%;
+    }
+}
+
+/* @media screen and (max-width: 400px) { */
+
+/* } */
+
+
