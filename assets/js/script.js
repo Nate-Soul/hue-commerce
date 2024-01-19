@@ -1,3 +1,20 @@
+// const getCurrentBallPosition = (element) => {
+//     const transformValue = window.getComputedStyle(element).getPropertyValue("transform");
+//     // const matrix = new DOMMatrix(transformValue);
+//     // return (Math.atan(matrix.b, matrix.a) * 100) /Math.PI;
+//     return transformValue;
+// };
+
+
+const cycleBall = (currentColorIndex) => {
+    const bigBall = document.querySelector(".big-ball");
+    const rotationAngle = ((currentColorIndex * 10) / 100) * 360;
+    // const x = Math.cos((rotationAngle * Math.PI) / 100) * 180;
+    // const y = Math.sin((rotationAngle * Math.PI) / 100) * 180;
+    // ball.style.transform = `translate(${x}%, ${y}%) rotate(${rotationAngle}deg)`;
+    bigBall.style.transform = `rotate(${rotationAngle}deg)`;
+}
+
 const cycleProductImages = (currentColorIndex) => {    
     const productHighlightImgs = document.querySelectorAll("#productHighlight img");
 
@@ -36,6 +53,7 @@ const cycleColourOnCarousel = (direction) => {
             const nextHue           = hueNames[nextHueIndex];
             
             cycleProductImages(nextHueIndex);
+            cycleBall(nextHueIndex);
             currentHueElements.forEach((hueElement) => {
                 hueElement.classList.replace(`bg-color-${getCurrentHueName}`, `bg-color-${nextHue}`);
             });
